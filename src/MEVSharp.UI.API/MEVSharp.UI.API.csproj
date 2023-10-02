@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>mevsharp</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />  
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />  
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />  
+    <PackageReference Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MEVSharp.Application\MEVSharp.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="HexMate">
+      <HintPath>..\Shared\Binary\HexMate.dll</HintPath>
+    </Reference>
+    <Reference Include=" Nethermind.Core">
+      <HintPath>..\Shared\Binary\Nethermind.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Crypto">
+      <HintPath>..\Shared\Binary\Nethermind.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Crypto.SecP256k1">
+      <HintPath>..\Shared\Binary\Nethermind.Crypto.SecP256k1.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Int256">
+      <HintPath>..\Shared\Binary\Nethermind.Int256.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Logging">
+      <HintPath>..\Shared\Binary\Nethermind.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Serialization.Rlp">
+      <HintPath>..\Shared\Binary\Nethermind.Serialization.Rlp.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.State">
+      <HintPath>..\Shared\Binary\Nethermind.State.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Trie">
+      <HintPath>..\Shared\Binary\Nethermind.Trie.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Db">
+      <HintPath>..\Shared\Binary\Nethermind.Db.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Logging">
+      <HintPath>..\Shared\Binary\Nethermind.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Serialization.Json">
+      <HintPath>..\Shared\Binary\Nethermind.Serialization.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Specs">
+      <HintPath>..\Shared\Binary\Nethermind.Specs.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

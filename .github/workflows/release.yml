@@ -1,0 +1,100 @@
+name: Release 
+on:
+  release:
+    types: [published]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7
+    - name: Restore Dependencies
+      working-directory: src
+      run: dotnet restore MEVSharp.sln
+    - name: Build
+      working-directory: src
+      run: dotnet build MEVSharp.sln -c Release --no-restore
+    - name: Run Tests
+      working-directory: src
+      run: dotnet test MEVSharp.sln --no-build -c Release --verbosity normal
+  release:
+    name: Release
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7
+      - name: Build binaries
+        shell: bash
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          release_name="mevsharp-$tag-${GITHUB_SHA:0:8}"
+          # Build
+          for rid in "linux-x64" "linux-arm64" "win-x64" "osx-x64" "osx-arm64"
+          do
+            echo "Building for $rid"          
+            dotnet publish src/MEVSharp.UI.API -r $rid -c Release -o $release_name-$rid --sc true \
+              -p:BuildTimestamp=$(date '+%s') \
+              -p:Commit="${GITHUB_SHA:0:8}" \
+              -p:Deterministic=true \
+              -p:PublishSingleFile=true
+          done
+          # Pack files
+          for rid in "linux-x64" "linux-arm64" "win-x64" "osx-x64" "osx-arm64"
+          do
+            zip -r -y $release_name-$rid.zip $release_name-$rid
+          done
+          # Delete output directory
+          rm -r $release_name*/
+      - name: Build Changelog
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "mevsharp*"
+          body: ${{steps.build_changelog.outputs.changelog}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  docker:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@b4bedf8053341df3b5a9f9e0f2cf4e79e27360c6
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@879dcbb708d40f8b8679d4f7941b938a086e23a7
+        with:
+          images: mevsharp/mevsharp      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@4c1b68d83ad20cc1a09620ca477d5bbbb5fa14d0
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

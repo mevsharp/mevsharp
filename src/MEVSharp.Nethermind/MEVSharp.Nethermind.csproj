@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="HexMate">
+      <HintPath>..\Shared\Binary\HexMate.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Core">
+      <HintPath>..\Shared\Binary\Nethermind.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Crypto">
+      <HintPath>..\Shared\Binary\Nethermind.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Int256">
+      <HintPath>..\Shared\Binary\Nethermind.Int256.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Serialization.Rlp">
+      <HintPath>..\Shared\Binary\Nethermind.Serialization.Rlp.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.State">
+      <HintPath>..\Shared\Binary\Nethermind.State.dll</HintPath>
+    </Reference>
+    <Reference Include="Nethermind.Trie">
+      <HintPath>..\Shared\Binary\Nethermind.Trie.dll</HintPath>
+    </Reference>
+    <Reference Include="SszSharp">
+      <HintPath>..\Shared\Binary\SszSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+
+
+</Project>

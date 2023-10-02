@@ -1,0 +1,15 @@
+# configuration file for dotnet-releaser
+[msbuild]
+project = "MEVSharp.sln"
+[github]
+user = "mevsharp"
+repo = "mevsharp"
+version_prefix = "v"
+[coveralls]
+publish = false
+[nuget]
+publish = false
+[brew]
+publish = false
+[scoop]
+publish = false

@@ -1,0 +1,10 @@
+**/obj
+**/bin
+**/logs
+**/tests
+.config
+.github
+benchmarking
+scripts
+wasm
+src/tests
