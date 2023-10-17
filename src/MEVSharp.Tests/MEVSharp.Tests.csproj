@@ -1,0 +1,113 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\blinded_blocks.json" />
+    <None Remove="Assets\blinded_blocks_goerli.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\blinded_blocks_response.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\get_header_response.json" />
+    <None Remove="Assets\get_header_response_invalid.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\blinded_blocks.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\blinded_blocks_goerli.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\blinded_blocks_response.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\get_header_response_invalid.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\get_header_response.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\register_validator.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.11" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageReference Include="Moq" Version="4.20.69" />
+    <PackageReference Include="xunit" Version="2.5.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MEVSharp.Application\MEVSharp.Application.csproj" />
+    <ProjectReference Include="..\MEVSharp.Features.Http.Clients\MEVSharp.Features.Http.Clients.csproj" />
+    <ProjectReference Include="..\MEVSharp.UI.API\MEVSharp.UI.API.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="HexMate">
+      <HintPath>..\Shared\Binary\HexMate.dll</HintPath>
+    </Reference>
+    <Reference Include="SszSharp">
+      <HintPath>..\Shared\Binary\SszSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\Shared\Binary\bls384_256.dll" Link="bls384_256.dll" Pack="true" PackagePath="runtimes\win-x64\native">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\Shared\Binary\mclbn256.dll" Link="mclbn256.dll" Pack="true" PackagePath="runtimes\win-x64\native">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\Shared\Binary\libbls384_256.so" Link="libbls384_256.so" Pack="true" PackagePath="runtimes\linux-x64\native">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\Shared\Binary\libbls384_256.dylib" Link="libbls384_256.dylib" Pack="true" PackagePath="runtimes\osx-x64\native">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Assets\blinded_blocks_response_goerli.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Assets\get_header_response_goerli.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

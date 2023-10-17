@@ -1,0 +1,39 @@
+<Project>
+  <PropertyGroup>
+    <Copyright>mevsharp</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Authors>mevsharp</Authors>
+    <PackageTags>mevsharp;ethereum</PackageTags>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageReleaseNotes>https://github.com/mevsharp/mevsharp/releases/</PackageReleaseNotes>
+    <PackageIcon>mevsharp.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/mevsharp/mevsharp</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Version>0.1.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+  </PropertyGroup>
+  <PropertyGroup Label="ProductInfo">
+    <BuildTimestamp Condition="'$(BuildTimestamp)' == ''">$([System.DateTimeOffset]::UtcNow.ToUnixTimeSeconds())</BuildTimestamp>
+    <Copyright>mevsharp</Copyright>
+    <Product>mevsharp</Product>
+    <SourceRevisionId Condition="'$(Commit)' != ''">$(Commit.Substring(0, 8))</SourceRevisionId>
+  </PropertyGroup>
+
+  <ItemGroup Label="AssemblyCustomMetadata">
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>BuildTimestamp</_Parameter1>
+      <_Parameter2>$(BuildTimestamp)</_Parameter2>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute" Condition="'$(Commit)' != ''">
+      <_Parameter1>Commit</_Parameter1>
+      <_Parameter2>$(Commit)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

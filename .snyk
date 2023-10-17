@@ -1,0 +1,26 @@
+version: v1.5.0
+ignore:
+  'SNYK-DOTNET-SYSTEMNETHTTP-60045':
+    - '*':
+        reason: 'No fix available'
+        expires: '2024-01-01T00:00:00.000Z'
+  'SNYK-DOTNET-SYSTEMNETHTTP-60046':
+    - '*':
+        reason: 'No fix available'
+        expires: '2024-01-01T00:00:00.000Z'
+  'SNYK-DOTNET-SYSTEMNETHTTP-60047':
+    - '*':
+        reason: 'No fix available'
+        expires: '2024-01-01T00:00:00.000Z'
+  'SNYK-DOTNET-SYSTEMNETHTTP-60048':
+    - '*':
+        reason: 'No fix available'
+        expires: '2024-01-01T00:00:00.000Z'
+  'SNYK-DOTNET-SYSTEMNETHTTP-72439]':
+    - '*':
+        reason: 'No fix available'
+        expires: '2024-01-01T00:00:00.000Z'
+  'SNYK-DOTNET-SYSTEMTEXTREGULAREXPRESSIONS-174708':
+    - '*':
+        reason: 'No fix available'
+        expires: '2024-01-01T00:00:00.000Z'

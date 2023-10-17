@@ -1,0 +1,28 @@
+{
+   "version":"capella",
+   "data":{
+      "message":{
+         "header":{
+            "parent_hash":"0xb7710cd7d85cd5b9499795a49fff72575420ad22aaee3608a5d2eed77d8fed61",
+            "fee_recipient":"0x1f9090aaE28b8a3dCeaDf281B0F12828e676c326",
+            "state_root":"0x0a2d386bc17e2d8b6113ef8e5e075188b0e1db37640f166e8c49aa4c689f4ed5",
+            "receipts_root":"0xa5357f2278c52429cc829bebcbe538c074adb279a2abc4a0999b0b00d32a75d0",
+            "logs_bloom":"0x56a590434d22c8f465ec1b64e26601b5c001449cf755126162bf208d56c218fad5d504206013086500d0db4c1a1a1110032f2508ffc8302b11748527902cab727c50b03d535c496969c16c4a340419ba98b1122417de39140e975ee0d8316b182b4fc8042ad3d607089842411a8baa56c4166c00a978edb62688ea16bb0cafc46200047e0b20e8c9076865408983682ea14a140baf45b20e4b0b8ed06b335fd9cb58431f4363f21d8a94d28611d7040617e60ff02022118301660d2e50e94c28318b3e22c1137c601be480fa2c5f0109401444fc9f4908154c0c1f663852e4823730ac490a215220054d3c0f901618a45d93d8c2b228c072082028808b03df34",
+            "prev_randao":"0x63fc5122d6b1f3c44d8ac9090c4db6848910587863ef96430e0accbbab90c313",
+            "block_number":"17388000",
+            "gas_limit":"30000000",
+            "gas_used":"14504051",
+            "timestamp":"1685647307",
+            "extra_data":"0x7273796e632d6275696c6465722e78797a",
+            "base_fee_per_gas":"39819801724",
+            "block_hash":"0xfe34302d1dea34c181ebb116c036d6b14de37b85dbaf18db8d94c0a8d51c9def",
+            "transactions_root":"0xa5bd4b3ae9ab1e50a4e670faf5e6fe7e11d1bdc7b3f1a8e299b7bb2fc5c709b3",
+            "withdrawals_root":"0xc16b1e2d7fbf482ba60f498f7c587cc78023bfd8c9faa77f4b18f4ccff1355ad"
+         },
+         "value":"63962237378799472",
+         "pubkey":"0xa7ab7a996c8584251c8f925da3170bdfd6ebc75d50f5ddc4050a6fdc77f2a3b5fce2cc750d0865e05d7228af97d69561"
+      },
+      "signature":"0xae26abf933f81f03e48905134fa65b9d47523312ecb371dc5999b3cbd6740a50fa3f7743b6db91f897173c1cacaadcd519cc40a968eef45903bad87e9ed15a96716343bbb3b95491b75ec3b40bffedfa060e47e6be633b3984ff934e702ecc7c"
+   }
+}
+
