@@ -90,7 +90,7 @@ jobs:
         with:
           images: mevsharp/mevsharp      
       - name: Build and push Docker image
-        uses: docker/build-push-action@4c1b68d83ad20cc1a09620ca477d5bbbb5fa14d0
+        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56
         with:
           context: .
           platforms: linux/amd64,linux/arm64
