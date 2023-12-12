@@ -1,8 +1,8 @@
-name: Docker Latest
+name: Docker Development
 on:
   push:
     branches:
-      - "main"
+      - "dev"
 
 jobs:
   test:
@@ -30,6 +30,10 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -45,4 +49,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: mevsharp/mevsharp:latest
+          tags: mevsharp/mevsharp:dev
