@@ -86,7 +86,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@879dcbb708d40f8b8679d4f7941b938a086e23a7
+        uses: docker/metadata-action@31cebacef4805868f9ce9a0cb03ee36c32df2ac4
         with:
           images: mevsharp/mevsharp      
       - name: Build and push Docker image
