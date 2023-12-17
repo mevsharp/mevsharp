@@ -10,6 +10,7 @@ using MEVSharp.Features.Http.Clients.Services;
 using MEVSharp.UI.API.Middlewares;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using Nethermind.Trie.Pruning;
 
 namespace MEVSharp.UI.API
 {
@@ -23,6 +24,8 @@ namespace MEVSharp.UI.API
         public IConfiguration Configuration { get; }
 
         public virtual void AddConfigureServices(IServiceCollection service) { }
+
+        
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -60,6 +63,54 @@ namespace MEVSharp.UI.API
                 options.Value.MinBid = Program.CLISettings.MinBid;
                 options.Value.RelayCheck = Program.CLISettings.RelayCheck;
                 options.Value.SetLoglevel(Program.CLISettings.LogLevel);
+
+
+
+                /*Not implemented:
+                 * RELAY_MONITORS skip
+                 * GENESIS_TIMESTAMP skip
+                */
+
+
+                if (Environment.GetEnvironmentVariable("LOG_LEVEL") is not null)
+                    options.Value.SetLoglevel(Environment.GetEnvironmentVariable("LOG_LEVEL"));
+
+                if (Environment.GetEnvironmentVariable("RELAY_STARTUP_CHECK") is not null)
+                    options.Value.RelayCheck = bool.Parse(Environment.GetEnvironmentVariable("RELAY_STARTUP_CHECK"));
+
+                if (Environment.GetEnvironmentVariable("MIN_BID_ETH") is not null)
+                    options.Value.MinBid = decimal.Parse(Environment.GetEnvironmentVariable("MIN_BID_ETH"));
+
+                if (Environment.GetEnvironmentVariable("DEBUG") is not null)
+                {
+                    var debug = Environment.GetEnvironmentVariable("DEBUG");
+                    if (debug is not null)
+                        options.Value.SetLoglevel("Debug");
+                }
+                if (Environment.GetEnvironmentVariable("LOG_SERVICE_TAG") is not null)
+                    options.Value.LogServiceTag = Environment.GetEnvironmentVariable("LOG_SERVICE_TAG");
+                if (Environment.GetEnvironmentVariable("RELAYS") is not null)
+                    options.Value.RelayUrls = Environment.GetEnvironmentVariable("RELAYS").Split(",").ToList();
+                if (Environment.GetEnvironmentVariable("REQUEST_MAX_RETRIES") is not null)
+                    options.Value.HttpRetryCount = int.Parse(Environment.GetEnvironmentVariable("REQUEST_MAX_RETRIES"));
+                if (Environment.GetEnvironmentVariable("GENESIS_FORK_VERSION") is not null)
+                    options.Value.GenesisForkVersion = Environment.GetEnvironmentVariable("GENESIS_FORK_VERSION");
+
+                List<string> networks = new List<string>();
+                networks.Add(Environment.GetEnvironmentVariable("SEPOLIA"));
+                networks.Add(Environment.GetEnvironmentVariable("GOERLI"));
+                networks.Add(Environment.GetEnvironmentVariable("HOLESKY"));
+                var network = networks.FirstOrDefault(x => x is not null);
+                if (Environment.GetEnvironmentVariable("network") is not null)
+                    options.Value.Network = network?.ToLower();
+
+                if (Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETHEADER") is not null)
+                    options.Value.RequestTimeoutGetheader = int.Parse(Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETHEADER"));
+                if (Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETPAYLOAD") is not null)
+                    options.Value.RequestTimeoutGetpayload = int.Parse(Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETPAYLOAD"));
+                if (Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_REGVAL") is not null)
+                    options.Value.RequestTimeoutRegval = int.Parse(Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_REGVAL"));
+
                 return options?.Value
                     ?? throw new InvalidOperationException("AppSettings is not configured.");
             });

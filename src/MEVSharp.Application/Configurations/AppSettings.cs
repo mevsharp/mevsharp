@@ -18,6 +18,7 @@ namespace MEVSharp.Application.Configurations
         public string ZapierID { get; set; } = string.Empty;
         public string ZapierSecret { get; set; } = string.Empty;
         public string TelegramAPI { get; set; } = string.Empty;
+        public string LogServiceTag { get; set; } = string.Empty;   
         public string TelegramChatID { get; set; } = string.Empty;
         public List<string> RelayUrls { get; set; } = new List<string>();
         public List<String> HostPort { get; set; } = new List<string>();
@@ -38,6 +39,7 @@ namespace MEVSharp.Application.Configurations
 
         public AppSettings SetLoglevel(string v)
         {
+            if (v is null) return this;
             if (!Enum.TryParse<LogLevel>(v, true, out LogLevel _loglevel))
             {
                 throw new Exception($"Invalid log level: {v}");
