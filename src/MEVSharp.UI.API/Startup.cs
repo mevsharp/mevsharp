@@ -10,6 +10,7 @@ using MEVSharp.Features.Http.Clients.Services;
 using MEVSharp.UI.API.Middlewares;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using System.Linq;
 using Nethermind.Trie.Pruning;
 
 namespace MEVSharp.UI.API
@@ -70,7 +71,8 @@ namespace MEVSharp.UI.API
                  * RELAY_MONITORS skip
                  * GENESIS_TIMESTAMP skip
                 */
-
+                if (Environment.GetEnvironmentVariable("BOOST_LISTEN_ADDR") is not null)
+                    options.Value.HostPort = Environment.GetEnvironmentVariable("BOOST_LISTEN_ADDR").Split(",").ToList();
 
                 if (Environment.GetEnvironmentVariable("LOG_LEVEL") is not null)
                     options.Value.SetLoglevel(Environment.GetEnvironmentVariable("LOG_LEVEL"));
@@ -96,12 +98,11 @@ namespace MEVSharp.UI.API
                 if (Environment.GetEnvironmentVariable("GENESIS_FORK_VERSION") is not null)
                     options.Value.GenesisForkVersion = Environment.GetEnvironmentVariable("GENESIS_FORK_VERSION");
 
-                List<string> networks = new List<string>();
-                networks.Add(Environment.GetEnvironmentVariable("SEPOLIA"));
-                networks.Add(Environment.GetEnvironmentVariable("GOERLI"));
-                networks.Add(Environment.GetEnvironmentVariable("HOLESKY"));
-                var network = networks.FirstOrDefault(x => x is not null);
-                if (Environment.GetEnvironmentVariable("network") is not null)
+                List<string> networks = new List<string>() { "SEPOLIA", "GOERLI", "HOLESKY" };
+
+                var network = networks.FirstOrDefault(x => Environment.GetEnvironmentVariables().Keys.Cast<string>().ToArray().Contains(x));
+               
+                if (network is null) throw new Exception("Network not found");
                     options.Value.Network = network?.ToLower();
 
                 if (Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETHEADER") is not null)

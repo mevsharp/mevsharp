@@ -327,7 +327,7 @@ namespace MEVSharp.UI.API
 
 
             var environmentListenAddr = Environment.GetEnvironmentVariable("BOOST_LISTEN_ADDR");
-
+          
 
             if (CLISettings is null && environmentListenAddr is null)
             {
@@ -336,17 +336,19 @@ namespace MEVSharp.UI.API
             }
 
             IHostBuilder builder;
-            if (CLISettings is not null)
+            if (environmentListenAddr is not null)
+            {
+                var listenAddress = environmentListenAddr.Split(",");
+                builder = CreateHostBuilder(args, listenAddress);
+                
+            }
+            else
             {
                 var listenAddress = (CLISettings.Listen.Any()
                       ? CLISettings.Listen.ToArray()
                       : CLISettings.Listen.ToArray()
               );
-                 builder = CreateHostBuilder(args, listenAddress);
-            }
-            else
-            {
-                builder = CreateHostBuilder(args, environmentListenAddr);
+                builder = CreateHostBuilder(args, listenAddress);
             }
 
             builder.ConfigureLogging( builder =>
