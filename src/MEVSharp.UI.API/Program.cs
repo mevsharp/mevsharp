@@ -6,6 +6,7 @@ using MEVSharp.Features.Http.Clients.Services;
 using MEVSharp.UI.API.Formatter;
 using System.CommandLine;
 using System.CommandLine.Parsing;
+using System.Data;
 using System.Reflection;
 using System.Text;
 
@@ -324,17 +325,32 @@ namespace MEVSharp.UI.API
             AppSettings = configuration.GetSection("Settings").Get<AppSettings>();
             await BuildCommands(version, args);
 
-            if (CLISettings is null)
+
+            var environmentListenAddr = Environment.GetEnvironmentVariable("BOOST_LISTEN_ADDR");
+          
+
+            if (CLISettings is null && environmentListenAddr is null)
             {
                 Log("Could not execute because the specified command or file was not found");
                 Environment.Exit(1);
             }
-            var listenAddress = (CLISettings.Listen.Any()
-                  ? CLISettings.Listen.ToArray()
-                  : CLISettings.Listen.ToArray()
-          );
 
-            var builder = CreateHostBuilder(args, listenAddress);
+            IHostBuilder builder;
+            if (environmentListenAddr is not null)
+            {
+                var listenAddress = environmentListenAddr.Split(",");
+                builder = CreateHostBuilder(args, listenAddress);
+                
+            }
+            else
+            {
+                var listenAddress = (CLISettings.Listen.Any()
+                      ? CLISettings.Listen.ToArray()
+                      : CLISettings.Listen.ToArray()
+              );
+                builder = CreateHostBuilder(args, listenAddress);
+            }
+
             builder.ConfigureLogging( builder =>
             {
                 var loglevel = CLISettings.GetLogLevel();
