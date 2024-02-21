@@ -97,14 +97,8 @@ namespace MEVSharp.UI.API
                     options.Value.HttpRetryCount = int.Parse(Environment.GetEnvironmentVariable("REQUEST_MAX_RETRIES"));
                 if (Environment.GetEnvironmentVariable("GENESIS_FORK_VERSION") is not null)
                     options.Value.GenesisForkVersion = Environment.GetEnvironmentVariable("GENESIS_FORK_VERSION");
-
-                List<string> networks = new List<string>() { "SEPOLIA", "GOERLI", "HOLESKY" };
-
-                var network = networks.FirstOrDefault(x => Environment.GetEnvironmentVariables().Keys.Cast<string>().ToArray().Contains(x));
-               
-                if (network is null) throw new Exception("Network not found");
-                    options.Value.Network = network?.ToLower();
-
+                if (Environment.GetEnvironmentVariable("network") is not null) 
+                    options.Value.Network = Environment.GetEnvironmentVariable("network");
                 if (Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETHEADER") is not null)
                     options.Value.RequestTimeoutGetheader = int.Parse(Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETHEADER"));
                 if (Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETPAYLOAD") is not null)
