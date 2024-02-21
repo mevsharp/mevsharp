@@ -63,6 +63,7 @@ namespace MEVSharp.UI.API
                 options.Value.TelegramChatID = Program.CLISettings.TelegramChatID;
                 options.Value.MinBid = Program.CLISettings.MinBid;
                 options.Value.RelayCheck = Program.CLISettings.RelayCheck;
+                options.Value.GenesisTimestamp = Program.CLISettings.GenesisTimestamp;
                 options.Value.SetLoglevel(Program.CLISettings.LogLevel);
 
 
@@ -97,14 +98,28 @@ namespace MEVSharp.UI.API
                     options.Value.HttpRetryCount = int.Parse(Environment.GetEnvironmentVariable("REQUEST_MAX_RETRIES"));
                 if (Environment.GetEnvironmentVariable("GENESIS_FORK_VERSION") is not null)
                     options.Value.GenesisForkVersion = Environment.GetEnvironmentVariable("GENESIS_FORK_VERSION");
-                if (Environment.GetEnvironmentVariable("network") is not null) 
-                    options.Value.Network = Environment.GetEnvironmentVariable("network");
+                
+                if (Environment.GetEnvironmentVariable("NETWORK") is not null) 
+                    options.Value.Network = Environment.GetEnvironmentVariable("NETWORK");
+
+                if (Environment.GetEnvironmentVariable("SEPOLIA") is not null)
+                    options.Value.Network = "sepolia";
+                if (Environment.GetEnvironmentVariable("GOERLI") is not null)
+                    options.Value.Network = "goerli";
+                if (Environment.GetEnvironmentVariable("HOLESKY") is not null)
+                    options.Value.Network = "holesky";
+                if (Environment.GetEnvironmentVariable("MAINNET") is not null)
+                    options.Value.Network = "mainnet";
+
+
                 if (Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETHEADER") is not null)
                     options.Value.RequestTimeoutGetheader = int.Parse(Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETHEADER"));
                 if (Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETPAYLOAD") is not null)
                     options.Value.RequestTimeoutGetpayload = int.Parse(Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_GETPAYLOAD"));
                 if (Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_REGVAL") is not null)
                     options.Value.RequestTimeoutRegval = int.Parse(Environment.GetEnvironmentVariable("RELAY_TIMEOUT_MS_REGVAL"));
+                if (Environment.GetEnvironmentVariable("GENESIS_TIMESTAMP") is not null)
+                    options.Value.GenesisTimestamp = long.Parse(Environment.GetEnvironmentVariable("GENESIS_TIMESTAMP"));
 
                 return options?.Value
                     ?? throw new InvalidOperationException("AppSettings is not configured.");
