@@ -45,6 +45,7 @@ namespace MEVSharp.UI.API
                 "--request-timeout-regval",
                 () => AppSettings.RequestTimeoutRegval
             );
+            var genesisTimestampOpt = new Option<long>("--genesis-time", () => -1);
             var logNoVersionOpt = new Option<bool>("--log-no-version", () => false);
             new Option<string>("--log-type", () => "simple");
             var logServiceOpt = new Option<string>("--log-service", () => "");
@@ -80,6 +81,7 @@ namespace MEVSharp.UI.API
             rootCommand.AddOption(logNoVersionOpt);
             rootCommand.AddOption(logLevelOpt);
             rootCommand.AddOption(logServiceOpt);
+            rootCommand.AddOption(genesisTimestampOpt);
             var binder = new CommandLineOptionsBinder(
                 relayOpt,
                 relaysOpt,
@@ -98,7 +100,8 @@ namespace MEVSharp.UI.API
                 requestRegValOpt,
                 logNoVersionOpt,
                  logLevelOpt,
-                 logServiceOpt
+                 logServiceOpt,
+                 genesisTimestampOpt
             );
             rootCommand.SetHandler(
                 (options) =>

@@ -8,9 +8,7 @@ namespace MEVSharp.UI.API
         public int RequestTimeoutGetHeader { get; set; }
         public int RequestTimeoutGetPayload { get; set; }
         public int RequestTimeoutRegVal { get; set; }
-        public IEnumerable<string> Relay { get; set; }
         public string Relays { get; set; }
-        public IEnumerable<string> Listen { get; set; }
         public string Network { get; set; }
         public string GenesisForkVersion { get; set; }
         public string ZapierID { get; set; }
@@ -20,6 +18,9 @@ namespace MEVSharp.UI.API
         public string LogType { get; set; }
         public string LogService { get; set; }
         public string LogLevel { get; set; }
+        public long GenesisTimestamp { get; set; }
+        public IEnumerable<string> Relay { get; set; }
+        public IEnumerable<string> Listen { get; set; }
 
         public LogLevel GetLogLevel()
         {
@@ -59,6 +60,9 @@ namespace MEVSharp.UI.API
         private readonly Option<string> logService;
         private readonly Option<bool> logNoVersion;
         private readonly Option<bool> versionOpt;
+        private readonly Option<long> genesisTimestamp;
+
+        
 
         public CommandLineOptionsBinder(
             Option<IEnumerable<string>> relay,
@@ -77,9 +81,9 @@ namespace MEVSharp.UI.API
             Option<int> requestPayload,
             Option<int> requestReg,
             Option<bool> logNoVersion,
-            Option<string> logLevel
-,
-            Option<string> logService
+            Option<string> logLevel,
+            Option<string> logService,
+            Option<long> genesisTimestamp
         )
         {
             this.logLevel = logLevel;
@@ -100,12 +104,14 @@ namespace MEVSharp.UI.API
             this.requestReg = requestReg;
             this.logNoVersion = logNoVersion;
             this.logService = logService;
+            this.genesisTimestamp = genesisTimestamp;
         }
 
         protected override CommandLineOptions GetBoundValue(BindingContext bindingContext)
         {
             var model = new CommandLineOptions()
             {
+                GenesisTimestamp = GetValue(bindingContext, genesisTimestamp),
                 LogService = GetValue(bindingContext, logService),
                 LogLevel = GetValue(bindingContext, logLevel),
                 GenesisForkVersion = GetValue(bindingContext, genesisForkVersion),
