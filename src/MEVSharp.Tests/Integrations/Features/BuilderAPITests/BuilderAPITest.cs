@@ -75,8 +75,8 @@ namespace MEVSharp.Tests.Integrations.Features.BuilderAPITests
             string slot = "5996137";
             string parentHash = headerResponse.Data.Message.header.parent_hash;
             string pubkey = headerResponse.Data.Message.pubkey;
-            await client.Resource.GetHeader(slot, parentHash, pubkey);
-
+            var getHeaderResponse = await client.Resource.GetHeader(slot, parentHash, pubkey);
+            Assert.True(getHeaderResponse.Response.IsSuccessStatusCode);
             var json = File.ReadAllText("Assets/blinded_blocks_goerli.json");
             var entity = JsonConvert.DeserializeObject<BlindedBlockRequest>(json);
             var response = await client.Resource.GetPayload(entity);

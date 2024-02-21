@@ -110,12 +110,7 @@ namespace MEVSharp.UI.API
                     {
                         Environment.Exit(1);
                     }
-                    if (string.IsNullOrEmpty(_options.Relays) && !_options.Relay.Any())
-                    {
-                        Console.WriteLine(
-                            "Either --relay or --relays option is required if no relays are specified in appsettings.json."
-                        );
-                    }
+                 
                   
                     if (!string.IsNullOrEmpty(_options.Relays))
                     {
@@ -152,7 +147,7 @@ namespace MEVSharp.UI.API
             Log($"MEVSharp {version}");
             if (AppSettings.RelayUrls.Count == 0)
             {
-                Log("No relay URLs configured. Exiting...");
+                Log("No relay URLs configured. Use --relay --relays or set environment variable RELAYS. Exiting...");
                 Environment.Exit(1);
             }
             var uniqueRelayUrls = AppSettings.RelayUrls.Distinct().ToList();
