@@ -15,6 +15,7 @@ namespace MEVSharp.Application.Configurations
         public string Network { get; set; } = string.Empty;
         public LogLevel LogLevel { get; set; }
         public string GenesisForkVersion { get; set; }
+        public long GenesisTimestamp { get; set; }
         public string ZapierID { get; set; } = string.Empty;
         public string ZapierSecret { get; set; } = string.Empty;
         public string TelegramAPI { get; set; } = string.Empty;

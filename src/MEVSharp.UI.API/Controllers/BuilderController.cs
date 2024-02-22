@@ -44,6 +44,7 @@ namespace MEVSharp.UI.API.Controllers
             this.controllerLogger = controllerLogger;
             this.appSettings = appSettings;
 
+            
             if (appSettings.Network == "mainnet")
             {
                 genesisTime = genesisTimeMainnet;
@@ -59,6 +60,10 @@ namespace MEVSharp.UI.API.Controllers
             else if (appSettings.Network == "holesky")
             {
                 genesisTime = genesisTimeHolesky;
+            }
+            else
+            {
+                genesisTime = appSettings.GenesisTimestamp;
             }
         }
 
